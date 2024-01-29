@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  dpp-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_VOICE_SUPPORT=ON
+        - CMAKE_BUILD_TYPE=Release
+        - DPP_VERSION=10.0.29
