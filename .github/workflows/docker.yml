@@ -1,0 +1,36 @@
+on:
+  workflow_dispatch:
+    inputs:
+      DPP_VERSION:
+        description: dpp version to build
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push with voice support
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: user/app:${{ github.event.inputs.DPP_VERSION }} # TODO
+          build-args: |
+            BUILD_VOICE_SUPPORT:ON
+            DPP_VERSION:${{ github.event.inputs.DPP_VERSION }}
+      - name: Build and push without voice support
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: user/app:${{ github.event.inputs.DPP_VERSION }}-no-voice # TODO
+          build-args: |
+            BUILD_VOICE_SUPPORT:OFF
+            DPP_VERSION:${{ github.event.inputs.DPP_VERSION }}
