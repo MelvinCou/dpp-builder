@@ -12,10 +12,11 @@ RUN apt-get -qqy update && \
         libsodium-dev \
         libopus-dev \
         cmake \
+        pkg-config \
         g++ \
         gcc \
         git\
-        make && \
+        make 1>/dev/null && \
     rm -rf /var/lib/apt/lists && \
     git clone https://github.com/brainboxdotcc/DPP.git
 # Build dpp
