@@ -3,8 +3,10 @@ ARG BUILD_VOICE_SUPPORT=ON
 ARG CMAKE_BUILD_TYPE=Release
 ARG DPP_VERSION
 
-# Install dependencies
+# Doing all in one to reduce image size
+
 RUN apt-get -qqy update && \
+# Install dependencies
     apt-get install --no-install-recommends -qqy \
         ca-certificates \
         libssl-dev \
@@ -17,11 +19,11 @@ RUN apt-get -qqy update && \
         gcc \
         git\
         make 1>/dev/null && \
-    rm -rf /var/lib/apt/lists && \
-    git clone https://github.com/brainboxdotcc/DPP.git
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    git clone --depth 1 --branch v${DPP_VERSION} https://github.com/brainboxdotcc/DPP.git && \
+    mkdir -p DPP/build && cd DPP/build && \
 # Build dpp
-WORKDIR /DPP/build
-RUN git checkout tags/v${DPP_VERSION} && \
     cmake .. -DDPP_BUILD_TEST=OFF -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_VOICE_SUPPORT=${BUILD_VOICE_SUPPORT} && \
     make -j$(nproc) && \
     make install && \
