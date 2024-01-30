@@ -18,19 +18,29 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push with voice support
+      - name: Build and push Ubuntu with voice support
         uses: docker/build-push-action@v5
         with:
+          file: Dockerfile.ubuntu
           push: true
-          tags: hadeath/dpp-builder:${{ github.event.inputs.DPP_VERSION }} # TODO
+          tags: hadeath/dpp-builder:${{ github.event.inputs.DPP_VERSION }}-ubuntu
           build-args: |
             BUILD_VOICE_SUPPORT=ON
             DPP_VERSION=${{ github.event.inputs.DPP_VERSION }}
-      - name: Build and push without voice support
+      - name: Build and push Ubuntu without voice support
         uses: docker/build-push-action@v5
         with:
+          file: Dockerfile.ubuntu
           push: true
-          tags: hadeath/dpp-builder:${{ github.event.inputs.DPP_VERSION }}-no-voice # TODO
+          tags: hadeath/dpp-builder:${{ github.event.inputs.DPP_VERSION }}-ubuntu-no-voice
           build-args: |
             BUILD_VOICE_SUPPORT=OFF
+            DPP_VERSION=${{ github.event.inputs.DPP_VERSION }}
+      - name: Build and push Alpine
+        uses: docker/build-push-action@v5
+        with:
+          file: Dockerfile.alpine
+          push: true
+          tags: hadeath/dpp-builder:${{ github.event.inputs.DPP_VERSION }}-alpine
+          build-args: |
             DPP_VERSION=${{ github.event.inputs.DPP_VERSION }}

@@ -1,0 +1,24 @@
+FROM alpine:3.19
+ARG CMAKE_BUILD_TYPE=Release
+ARG DPP_VERSION=10.0.29
+
+# Doing all in one to reduce image size
+
+RUN apk add -U --no-cache \
+        ca-certificates \
+        openssl-dev \
+        cmake \
+        pkgconfig \
+        g++ \
+        gcc \
+        git\
+        make \
+        zlib-dev && \
+    git clone --depth 1 --branch v${DPP_VERSION} https://github.com/brainboxdotcc/DPP.git && \
+    mkdir -p DPP/build && cd DPP/build && \
+# Build dpp
+    cmake .. -DDPP_BUILD_TEST=OFF -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} && \
+    make -j$(nproc) && \
+    make install && \
+# Sources are now useless
+    rm -rf /DPP
