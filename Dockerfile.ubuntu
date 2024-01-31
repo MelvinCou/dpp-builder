@@ -10,9 +10,9 @@ RUN apt-get -qqy update && \
     apt-get install --no-install-recommends -qqy \
         ca-certificates \
         libssl-dev \
-        zlib1g-dev \
-        libsodium-dev \
         libopus-dev \
+        libsodium-dev \
+        zlib1g-dev \
         cmake \
         pkg-config \
         g++ \

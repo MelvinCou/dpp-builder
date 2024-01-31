@@ -36,11 +36,21 @@ jobs:
           build-args: |
             BUILD_VOICE_SUPPORT=OFF
             DPP_VERSION=${{ github.event.inputs.DPP_VERSION }}
-      - name: Build and push Alpine
+      - name: Build and push Alpine with voice support
         uses: docker/build-push-action@v5
         with:
           file: Dockerfile.alpine
           push: true
           tags: hadeath/dpp-builder:${{ github.event.inputs.DPP_VERSION }}-alpine
           build-args: |
+            BUILD_VOICE_SUPPORT=ON
+            DPP_VERSION=${{ github.event.inputs.DPP_VERSION }}
+      - name: Build and push Alpine without voice support
+        uses: docker/build-push-action@v5
+        with:
+          file: Dockerfile.alpine
+          push: true
+          tags: hadeath/dpp-builder:${{ github.event.inputs.DPP_VERSION }}-alpine-no-voice
+          build-args: |
+            BUILD_VOICE_SUPPORT=OFF
             DPP_VERSION=${{ github.event.inputs.DPP_VERSION }}
