@@ -20,7 +20,7 @@ RUN apk add -U --no-cache \
     git clone --depth 1 --branch v${DPP_VERSION} https://github.com/brainboxdotcc/DPP.git && \
     mkdir -p DPP/build && cd DPP/build && \
 # Build dpp
-    cmake .. -DDPP_BUILD_TEST=OFF -DDPP_CORO=ON -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_VOICE_SUPPORT=${BUILD_VOICE_SUPPORT} && \
+    cmake .. -DDPP_BUILD_TEST=OFF -DDPP_CORO=ON -DDPP_USE_PCH=ON -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_VOICE_SUPPORT=${BUILD_VOICE_SUPPORT} && \
     make -j$(nproc) && \
     make install && \
 # Sources are now useless
