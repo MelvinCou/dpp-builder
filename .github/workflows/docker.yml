@@ -54,3 +54,9 @@ jobs:
           build-args: |
             BUILD_VOICE_SUPPORT=OFF
             DPP_VERSION=${{ github.event.inputs.DPP_VERSION }}
+      - name: Update Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: MelvinCou/dpp-builder
