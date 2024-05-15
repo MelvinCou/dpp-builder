@@ -1,11 +1,17 @@
-version: '3'
-
 services:
-  dpp-builder:
+  ubuntu:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.ubuntu
       args:
         - BUILD_VOICE_SUPPORT=ON
         - CMAKE_BUILD_TYPE=Release
         - DPP_VERSION=10.0.29
+  alpine:
+    build:
+      context: .
+      dockerfile: Dockerfile.alpine
+      args:
+        - BUILD_VOICE_SUPPORT=ON
+        - CMAKE_BUILD_TYPE=Release
+        - DPP_VERSION=master

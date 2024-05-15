@@ -27,7 +27,7 @@ RUN apt-get -qqy update && \
     rm -rf /var/lib/apt/lists
 
 COPY --from=builder /a.out /a.out
-COPY --from=builder /usr/local/lib/libdpp.so.$DPP_VERSION /usr/local/lib/libdpp.so.$DPP_VERSION
+COPY --from=builder /usr/local/lib/libdpp.so.* /usr/local/lib/
 ```
 
 ## Alpine
@@ -40,7 +40,7 @@ COPY . .
 
 RUN gcc main.cpp -ldpp -I/usr/local/include
 
-FROM ubuntu
+FROM alpine
 ARG DPP_VERSION
 
 RUN apk add -U --no-cache \
@@ -52,5 +52,5 @@ RUN apk add -U --no-cache \
         zlib
 
 COPY --from=builder /a.out /a.out
-COPY --from=builder /usr/local/lib/libdpp.so.$DPP_VERSION /usr/local/lib/libdpp.so.$DPP_VERSION
+COPY --from=builder /usr/local/lib/libdpp.so.* /usr/local/lib/
 ```
