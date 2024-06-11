@@ -27,7 +27,7 @@ RUN apt-get -qqy update && \
     rm -rf /var/lib/apt/lists
 
 COPY --from=builder /a.out /a.out
-COPY --from=builder /usr/local/lib/libdpp.so.* /usr/local/lib/
+COPY --from=builder /usr/local/lib/libdpp.so.* /usr/lib
 ```
 
 ## Alpine
@@ -52,5 +52,5 @@ RUN apk add -U --no-cache \
         zlib
 
 COPY --from=builder /a.out /a.out
-COPY --from=builder /usr/local/lib/libdpp.so.* /usr/local/lib/
+COPY --from=builder /usr/local/lib/libdpp.so.* /usr/lib
 ```
