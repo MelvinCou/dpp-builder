@@ -2,6 +2,11 @@
 
 Docker builder for [dpp library](https://github.com/brainboxdotcc/DPP).
 
+How tags works: `{VERSION}-{LINUX}[-{VOICE_SUPPORT}]`, some examples:
+
+- `master-ubuntu`: master branch (built weekly) on ubuntu
+- `10.0.29-alpine-no-voice`: built from tag 10.0.29 for alpine without voice support
+
 Simple usage:
 
 ## Ubuntu
