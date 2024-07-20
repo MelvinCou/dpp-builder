@@ -24,11 +24,11 @@ ARG DPP_VERSION
 
 RUN apt-get -qqy update && \
     apt-get install --no-install-recommends -qqy \
-    ca-certificates \
-    libssl3 \
-    zlib1g \
-    libsodium23 \
-    libopus0 && \
+        ca-certificates \
+        libssl3 \
+        zlib1g \
+        libsodium23 \
+        libopus0 && \
     rm -rf /var/lib/apt/lists
 
 COPY --from=builder /a.out /a.out

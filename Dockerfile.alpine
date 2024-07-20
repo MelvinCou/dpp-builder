@@ -1,7 +1,7 @@
 FROM alpine:3.20
 ARG BUILD_VOICE_SUPPORT=ON
 ARG CMAKE_BUILD_TYPE=Release
-ARG DPP_VERSION=master
+ARG DPP_VERSION
 
 # Doing all in one to reduce image size
 
