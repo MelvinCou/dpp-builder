@@ -8,7 +8,6 @@ ARG DPP_VERSION
 RUN apk add -U --no-cache \
         ca-certificates \
         openssl-dev \
-        libsodium-dev \
         opus-dev \
         zlib-dev \
         cmake \

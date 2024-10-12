@@ -11,7 +11,6 @@ RUN apt-get -qqy update && \
         ca-certificates \
         libssl-dev \
         libopus-dev \
-        libsodium-dev \
         zlib1g-dev \
         cmake \
         pkg-config \
