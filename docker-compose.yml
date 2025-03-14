@@ -1,17 +1,22 @@
+x-args: &args
+  BUILD_VOICE_SUPPORT: OFF
+  CMAKE_BUILD_TYPE: Release
+  DPP_VERSION: master
+x-test: &test
+  command: /test/test.sh
+  volumes:
+    - ./test:/test:ro 
+
 services:
   ubuntu:
     build:
       context: .
       dockerfile: Dockerfile.ubuntu
-      args:
-        - BUILD_VOICE_SUPPORT=ON
-        - CMAKE_BUILD_TYPE=Release
-        - DPP_VERSION=10.0.29
+      args: *args
+    <<: *test
   alpine:
     build:
       context: .
       dockerfile: Dockerfile.alpine
-      args:
-        - BUILD_VOICE_SUPPORT=ON
-        - CMAKE_BUILD_TYPE=Release
-        - DPP_VERSION=master
+      args: *args
+    <<: *test
