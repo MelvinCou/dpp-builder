@@ -1,4 +1,4 @@
-FROM alpine:3.21
+FROM alpine:3.22
 ARG BUILD_VOICE_SUPPORT=ON
 ARG CMAKE_BUILD_TYPE=Release
 ARG DPP_VERSION
@@ -14,13 +14,12 @@ RUN apk add -U --no-cache \
         pkgconfig \
         g++ \
         gcc \
-        git\
+        git \
         make && \
     git clone --depth 1 --branch "$(echo $DPP_VERSION | sed 's/^[0-9]./v&/g')" https://github.com/brainboxdotcc/DPP.git && \
-    mkdir -p DPP/build && cd DPP/build && \
 # Build dpp
-    cmake .. -DDPP_BUILD_TEST=OFF -DDPP_USE_PCH=ON -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_VOICE_SUPPORT=${BUILD_VOICE_SUPPORT} && \
-    make -j$(nproc) && \
-    make install && \
+    cmake -S DPP -B DPP/build -DDPP_BUILD_TEST=OFF -DDPP_USE_PCH=ON -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_VOICE_SUPPORT=${BUILD_VOICE_SUPPORT} && \
+    cmake --build DPP/build -j$(nproc) && \
+    cmake --install DPP/build && \
 # Sources are now useless
     rm -rf /DPP
