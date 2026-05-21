@@ -31,7 +31,7 @@ COPY . .
 
 RUN gcc main.cpp -ldpp -I/usr/local/include
 
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 RUN apt-get -qqy update && \
     apt-get install --no-install-recommends -qqy \
@@ -59,7 +59,7 @@ COPY . .
 
 RUN gcc main.cpp -ldpp -I/usr/local/include
 
-FROM alpine:3.20
+FROM alpine:3.23
 
 RUN apk add -U --no-cache \
         ca-certificates \
@@ -87,7 +87,7 @@ WORKDIR /build
 RUN cmake -DCMAKE_BUILD_TYPE=Release .. && \
     make -j$(nproc)
 
-FROM alpine:3.20
+FROM alpine:3.23
 
 RUN apk add -U --no-cache \
         ca-certificates \
